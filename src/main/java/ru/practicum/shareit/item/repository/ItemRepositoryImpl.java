@@ -48,17 +48,17 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     @Override
     public List<Item> getUserItems(long ownerId) {
-        return items.values().stream().
-                filter(item -> item.getOwner() == ownerId)
+        return items.values().stream()
+        .filter(item -> item.getOwner() == ownerId)
                 .toList();
     }
 
     @Override
     public List<Item> searchItems(String text) {
-        return items.values().stream().
-                filter(item -> item.getName().toLowerCase().contains(text.toLowerCase()) ||
-                        item.getDescription().toLowerCase().contains(text.toLowerCase())).
-                filter(item -> Boolean.TRUE.equals(item.getAvailable()))
+        return items.values().stream()
+        .filter(item -> item.getName().toLowerCase().contains(text.toLowerCase()) ||
+                        item.getDescription().toLowerCase().contains(text.toLowerCase()))
+        .filter(item -> Boolean.TRUE.equals(item.getAvailable()))
                 .toList();
     }
 
