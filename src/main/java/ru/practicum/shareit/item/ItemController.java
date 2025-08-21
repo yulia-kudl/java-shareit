@@ -23,7 +23,7 @@ public class ItemController {
     private final ItemMapper mapper;
 
     @PostMapping
-    ItemResponseDto create( @Valid @RequestBody ItemRequestDto request, @RequestHeader("X-Sharer-User-Id") long ownerId) {
+    ItemResponseDto create(@Valid @RequestBody ItemRequestDto request, @RequestHeader("X-Sharer-User-Id") long ownerId) {
         return mapper.toItemResponse(service.addItem(ownerId, mapper.toItem(request)));
     }
 
@@ -47,7 +47,7 @@ public class ItemController {
     }
 
     @GetMapping("search")
-    List<ItemResponseUserDto> searchItems(@RequestParam  String text) {
+    List<ItemResponseUserDto> searchItems(@RequestParam String text) {
         return mapper.toItemResponseList(service.searchItems(text));
     }
 }

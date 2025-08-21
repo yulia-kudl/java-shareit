@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ItemRepositoryImpl implements ItemRepository{
+public class ItemRepositoryImpl implements ItemRepository {
     private final Map<Long, Item> items = new HashMap<>();
-    private long  lastIndex = 0L;
+    private long lastIndex = 0L;
+
     @Override
     public Item addItem(long ownerId, Item item) {
         setId(item);

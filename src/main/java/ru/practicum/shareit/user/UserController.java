@@ -20,14 +20,17 @@ public class UserController {
     UserResponse getUserById(@PathVariable long userId) {
         return mapper.toUserResponse(service.getUser(userId));
     }
+
     @PostMapping
     UserResponse createUser(@Valid @RequestBody UserRequest request) {
         return mapper.toUserResponse(service.createUser(mapper.toUser(request)));
     }
+
     @PatchMapping("/{userId}")
     UserResponse updateUser(@Valid @RequestBody UserUpdate update, @PathVariable long userId) {
         return mapper.toUserResponse(service.updateUser(mapper.toUser(update), userId));
     }
+
     @DeleteMapping("/{userId}")
     void deleteUser(@PathVariable long userId) {
         service.deleteUser(userId);

@@ -9,12 +9,16 @@ import ru.practicum.shareit.item.model.Item;
 
 import java.util.List;
 
-@Mapper(componentModel="spring")
+@Mapper(componentModel = "spring")
 public interface ItemMapper {
     Item toItem(ItemRequestDto request);
+
     Item toItem(ItemUpdateDto update);
+
     ItemResponseDto toItemResponse(Item item);
+
     ItemResponseUserDto toItemResponseUser(Item item);
+
     List<ItemResponseUserDto> toItemResponseList(List<Item> items);
 
 }
