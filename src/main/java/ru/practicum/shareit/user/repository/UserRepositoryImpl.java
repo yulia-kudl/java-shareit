@@ -9,9 +9,10 @@ import java.util.Map;
 
 @Repository
 @Slf4j
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
     private final Map<Long, User> users = new HashMap<>();
     private long lastIndex = 0;
+
     @Override
     public boolean ifUserExists(long userId) {
         return users.containsKey(userId);
@@ -34,11 +35,11 @@ public class UserRepositoryImpl implements UserRepository{
         User currentUser = users.get(userId);
         log.warn("update.getEmail() = '{}'", update.getEmail());
         log.warn("update.getName() = '{}'", update.getName());
-        if (update.getEmail()!= null) {
+        if (update.getEmail() != null) {
             log.warn(" имэйл новый: {}", update.getEmail());
             currentUser.setEmail(update.getEmail());
         }
-        if (update.getName()!= null) {
+        if (update.getName() != null) {
             log.warn(" name новый: {}", update.getName());
             currentUser.setName(update.getName());
         }

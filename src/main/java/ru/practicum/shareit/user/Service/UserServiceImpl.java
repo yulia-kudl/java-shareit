@@ -8,8 +8,9 @@ import ru.practicum.shareit.user.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+
     @Override
     public User getUser(long userId) {
         if (!(userRepository.ifUserExists(userId))) {
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService{
         if (!(userRepository.ifUserExists(userId))) {
             throw new ProjectException("пользователь с id " + userId + "не найден");
         }
-        if (update.getEmail() != null ) {
+        if (update.getEmail() != null) {
             validate(update.getEmail());
         }
         return userRepository.updateUser(update, userId);
@@ -45,8 +46,8 @@ public class UserServiceImpl implements UserService{
 
     private void validate(String email) {
         //проверить что имэйл еще нет
-        if  (userRepository.ifEmailExists(email)) {
-            throw new ProjectException("такой email "+ email + " уже существует");
+        if (userRepository.ifEmailExists(email)) {
+            throw new ProjectException("такой email " + email + " уже существует");
         }
     }
 }

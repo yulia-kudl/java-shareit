@@ -6,9 +6,11 @@ import ru.practicum.shareit.user.dto.UserRequest;
 import ru.practicum.shareit.user.dto.UserResponse;
 import ru.practicum.shareit.user.dto.UserUpdate;
 
-@Mapper(componentModel="spring")
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     User toUser(UserRequest request);
+
     User toUser(UserUpdate update);
+
     UserResponse toUserResponse(User user);
 }
