@@ -2,49 +2,79 @@ package ru.practicum.shareit.item.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.booking.repository.BookingRepository;
+import ru.practicum.shareit.booking.service.BookingService;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.exceptions.ProjectException;
+import ru.practicum.shareit.item.entity.CommentEntity;
+import ru.practicum.shareit.item.entity.ItemEntity;
+import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.item.repository.ItemRepository;
-import ru.practicum.shareit.user.repository.UserRepository;
+import ru.practicum.shareit.item.repository.CommentRepository;
+import ru.practicum.shareit.item.repository.ItemEntityMapper;
+import ru.practicum.shareit.item.repository.ItemRepository1;
+import ru.practicum.shareit.user.entity.UserEntity;
+import ru.practicum.shareit.user.repository.UserRepository1;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
 public class ItemServiceIml implements ItemService {
-    private final ItemRepository repository;
-    private final UserRepository userRepository;
+    private final ItemRepository1 repository;
+    private final UserRepository1 userRepository;
+    private final ItemEntityMapper mapper;
+    private final BookingRepository bookingRepository;
+    private final CommentRepository commentRepository;
+    private final BookingService bookingService;
 
     @Override
     public Item addItem(long ownerId, Item item) {
         validate(ownerId);
         validate(item);
+        ItemEntity itemEntity = mapper.toEntity(item,userRepository);
+        UserEntity userEntity = userRepository.findById(ownerId).orElseThrow(() -> new NoSuchElementException("owner id"+ ownerId));
+        itemEntity.setOwner(userEntity);
 
-        return repository.addItem(ownerId, item);
+        return mapper.toItem(repository.save(itemEntity));
     }
 
     @Override
     public Item updateItem(long itemId, long ownerId, Item item) {
         validate(ownerId);
-        if (repository.getOwner(itemId) != ownerId) {
-            throw new ProjectException("id пользователя " + ownerId + " yне соответствует id владельца " + repository.getOwner(itemId));
+        ItemEntity itemToUpdate = repository.findById(itemId).orElseThrow(() -> new NoSuchElementException("item c ID "
+        + itemId + "не существует"));
+        Long currentOwner = itemToUpdate.getOwner().getId();
+        if (!currentOwner.equals(ownerId)) {
+            throw new ProjectException("id пользователя " + ownerId + " не соответствует id владельца " +
+                    currentOwner);
         }
-        return repository.updateItem(item, itemId);
+        mapper.updateEntity(item, itemToUpdate);
+        return mapper.toItem(repository.save(itemToUpdate));
     }
 
     @Override
-    public Item getItem(long itemId) {
-        Item item = repository.getItem(itemId);
-        if (item == null)
-            throw new ProjectException("itemId " + itemId + "не найден");
+    public Item getItem(long itemId, long userId) {
+        ItemEntity itemEntity = repository.findById(itemId).orElseThrow(() -> new ProjectException("itemId " + itemId + " не найден"));
+        List<Comment> comments = mapper.toCommentList(commentRepository.findAllByItem_Id(itemId));
+        Item item = mapper.toItem(itemEntity);
+        item.setComments(comments);
+        if (itemEntity.getOwner().getId() == userId) {
+            item.setNextBooking(bookingService.getNextBookingForItem(itemId));
+            item.setLastBooking(bookingService.getLastBookingForItem(itemId));
+        }
         return item;
     }
 
     @Override
     public List<Item> getUserItems(long ownerId) {
         validate(ownerId);
-        return repository.getUserItems(ownerId);
+        return repository.findAllByOwner(ownerId).stream()
+                .map(mapper::toItem)
+                .toList();
     }
 
     @Override
@@ -52,11 +82,31 @@ public class ItemServiceIml implements ItemService {
         if (text.isBlank()) {
             return List.of();
         }
-        return repository.searchItems(text);
+        return repository.searchItems(text).stream()
+                .filter(ItemEntity::getAvailable)
+                .map(mapper::toItem)
+                .toList();
+    }
+
+    @Override
+    public Comment addComment(long userId, long itemId, Comment comment) {
+        if (bookingRepository.findFirstByItem_IdAndUser_IdAndEndBefore(itemId, userId, Timestamp.from(Instant.now())).isEmpty())
+            throw new ProjectException("завершенной брони вещи с itemId " + itemId + " у пользователя userId " + userId
+            + " нет");
+
+
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
+        ItemEntity itemEntity= repository.findById(itemId).orElseThrow(NoSuchElementException::new);
+
+
+        CommentEntity commentEntity = mapper.toEntity(comment);
+        commentEntity.setItem(itemEntity);
+        commentEntity.setAuthor(userEntity);
+        return mapper.toComment(commentRepository.save(commentEntity));
     }
 
     private void validate(long ownerId) {
-        if (!userRepository.ifUserExists(ownerId)) {
+        if (!userRepository.existsById(ownerId)) {
             throw new NotFoundException("пользователь с id " + ownerId + " не найден");
         }
     }
