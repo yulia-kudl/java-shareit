@@ -16,8 +16,6 @@ public interface ItemMapper {
 
     ItemResponseDto toItemResponse(Item item);
 
-    //ItemResponseUserDto toItemResponseUser(Item item);
-
     List<ItemResponseUserDto> toItemResponseList(List<Item> items);
 
     @Mapping(target = "id", ignore = true)

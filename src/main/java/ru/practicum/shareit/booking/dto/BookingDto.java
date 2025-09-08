@@ -7,7 +7,6 @@ import ru.practicum.shareit.booking.model.BookingStatus;
 import ru.practicum.shareit.item.dto.ItemResponseDto;
 import ru.practicum.shareit.user.dto.UserResponse;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**

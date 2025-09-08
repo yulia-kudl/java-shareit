@@ -25,6 +25,7 @@ public class BookingController {
     BookingDto create(@Valid @RequestBody BookingRequestDto request, @RequestHeader("X-Sharer-User-Id") long bookerId) {
         return mapper.toBookingDto(bookingService.addBooking(bookerId, mapper.toBooking(request)));
     }
+
     //PATCH /bookings/{bookingId}?approved={approved}
     @PatchMapping("{bookingId}")
     BookingDto update(@RequestHeader("X-Sharer-User-Id") long ownerId, @PathVariable long bookingId,
@@ -41,7 +42,7 @@ public class BookingController {
     //GET /bookings?state={state}
     @GetMapping
     List<BookingDto> getBookingsForBookerByState(@RequestHeader("X-Sharer-User-Id") long booker,
-                                        @RequestParam(name = "state", defaultValue = "ALL") BookingState state) {
+                                                 @RequestParam(name = "state", defaultValue = "ALL") BookingState state) {
 
         return bookingService.getBookingsForBookerByState(booker, state).stream()
                 .map(mapper::toBookingDto)

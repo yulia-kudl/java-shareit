@@ -35,8 +35,8 @@ public class ItemServiceIml implements ItemService {
     public Item addItem(long ownerId, Item item) {
         validate(ownerId);
         validate(item);
-        ItemEntity itemEntity = mapper.toEntity(item,userRepository);
-        UserEntity userEntity = userRepository.findById(ownerId).orElseThrow(() -> new NoSuchElementException("owner id"+ ownerId));
+        ItemEntity itemEntity = mapper.toEntity(item, userRepository);
+        UserEntity userEntity = userRepository.findById(ownerId).orElseThrow(() -> new NoSuchElementException("owner id" + ownerId));
         itemEntity.setOwner(userEntity);
 
         return mapper.toItem(repository.save(itemEntity));
@@ -46,7 +46,7 @@ public class ItemServiceIml implements ItemService {
     public Item updateItem(long itemId, long ownerId, Item item) {
         validate(ownerId);
         ItemEntity itemToUpdate = repository.findById(itemId).orElseThrow(() -> new NoSuchElementException("item c ID "
-        + itemId + "не существует"));
+                + itemId + "не существует"));
         Long currentOwner = itemToUpdate.getOwner().getId();
         if (!currentOwner.equals(ownerId)) {
             throw new ProjectException("id пользователя " + ownerId + " не соответствует id владельца " +
@@ -92,11 +92,11 @@ public class ItemServiceIml implements ItemService {
     public Comment addComment(long userId, long itemId, Comment comment) {
         if (bookingRepository.findFirstByItem_IdAndUser_IdAndEndBefore(itemId, userId, Timestamp.from(Instant.now())).isEmpty())
             throw new ProjectException("завершенной брони вещи с itemId " + itemId + " у пользователя userId " + userId
-            + " нет");
+                    + " нет");
 
 
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
-        ItemEntity itemEntity= repository.findById(itemId).orElseThrow(NoSuchElementException::new);
+        ItemEntity itemEntity = repository.findById(itemId).orElseThrow(NoSuchElementException::new);
 
 
         CommentEntity commentEntity = mapper.toEntity(comment);

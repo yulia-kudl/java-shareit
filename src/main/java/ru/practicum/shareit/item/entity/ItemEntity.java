@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.practicum.shareit.request.ItemRequest;
 import ru.practicum.shareit.user.entity.UserEntity;
 
 @Getter
@@ -13,7 +12,7 @@ import ru.practicum.shareit.user.entity.UserEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="items")
+@Table(name = "items")
 public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

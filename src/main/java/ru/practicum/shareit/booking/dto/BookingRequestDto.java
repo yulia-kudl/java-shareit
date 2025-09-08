@@ -1,14 +1,14 @@
 package ru.practicum.shareit.booking.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.shareit.booking.model.BookingStatus;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -27,5 +27,7 @@ public class BookingRequestDto {
     private LocalDateTime end;
 
     @AssertTrue
-    boolean isStartBeforeEnd() { return start.isBefore(end);}
+    boolean isStartBeforeEnd() {
+        return start.isBefore(end);
+    }
 }
