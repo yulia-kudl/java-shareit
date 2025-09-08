@@ -13,4 +13,5 @@ public interface UserMapper {
     User toUser(UserUpdate update);
 
     UserResponse toUserResponse(User user);
+
 }
