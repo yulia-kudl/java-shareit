@@ -17,6 +17,7 @@ public interface ItemEntityMapper {
     Item toItem(ItemEntity entity);
 
     ItemEntity toEntity(Item item, @Context UserRepository1 userRepository);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "owner", ignore = true)
     void updateEntity(Item item, @MappingTarget ItemEntity itemEntity);
@@ -26,5 +27,6 @@ public interface ItemEntityMapper {
 
     @Mapping(target = "created", expression = "java(entity.getRegistry().toLocalDateTime())")
     Comment toComment(CommentEntity entity);
+
     List<Comment> toCommentList(List<CommentEntity> entitys);
 }

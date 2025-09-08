@@ -18,36 +18,34 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
     List<BookingEntity> findAllByBookerAndState(@Param("userId") long bookerId);
 
     @Query("select b from BookingEntity b where b.user.id = :userId and start > :now and end < :now order by start desc")
-    List<BookingEntity> findCurrentByBookerAndState(@Param("userId")long booker,  @Param("now")Timestamp now);
+    List<BookingEntity> findCurrentByBookerAndState(@Param("userId") long booker, @Param("now") Timestamp now);
 
     @Query("select b from BookingEntity b where b.user.id = :userId and start > :now and end < :now order by start desc")
-    List<BookingEntity> findFutureByBookerAndState(@Param("userId")long booker, @Param("now")Timestamp now);
+    List<BookingEntity> findFutureByBookerAndState(@Param("userId") long booker, @Param("now") Timestamp now);
 
     @Query("select b from BookingEntity b where b.user.id = :userId and end < :now order by start desc")
-    List<BookingEntity> findPastByBookerAndState(@Param("userId")long booker, @Param("now")Timestamp now);
+    List<BookingEntity> findPastByBookerAndState(@Param("userId") long booker, @Param("now") Timestamp now);
 
     @Query("select b from BookingEntity b where b.user.id = :userId and b.status = :state order by start desc")
-    List<BookingEntity> findByBookerAndState(@Param("userId")long booker, @Param(("state")) String state);
+    List<BookingEntity> findByBookerAndState(@Param("userId") long booker, @Param(("state")) String state);
 
     @Query("select b from BookingEntity b")
-    List<BookingEntity> findAllByOwnerAndState(@Param("userId")long owner, String name);
+    List<BookingEntity> findAllByOwnerAndState(@Param("userId") long owner, String name);
 
     @Query("select b from BookingEntity b")
-    List<BookingEntity> findCurrentByOwnerAndState(@Param("userId")long owner, String name);
+    List<BookingEntity> findCurrentByOwnerAndState(@Param("userId") long owner, String name);
 
     @Query("select b from BookingEntity b")
-    List<BookingEntity> findFutureByOwnerAndState(@Param("userId")long owner, String name);
+    List<BookingEntity> findFutureByOwnerAndState(@Param("userId") long owner, String name);
 
     @Query("select b from BookingEntity b")
-    List<BookingEntity> findPastByOwnerAndState(@Param("userId")long owner, String name);
+    List<BookingEntity> findPastByOwnerAndState(@Param("userId") long owner, String name);
 
     @Query("select b from BookingEntity b")
-    List<BookingEntity> findByOwnerAndState(@Param("userId")long owner, String name);
+    List<BookingEntity> findByOwnerAndState(@Param("userId") long owner, String name);
 
 
-
-
-   // Optional<BookingEntity> findFirstByIdAndOwner(long id, long owner);
+    // Optional<BookingEntity> findFirstByIdAndOwner(long id, long owner);
 
     Optional<BookingEntity> findFirstByIdAndItemOwnerId(long bookingId, long requester);
 

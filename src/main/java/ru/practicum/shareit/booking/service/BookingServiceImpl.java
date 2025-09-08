@@ -22,7 +22,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class BookingServiceImpl implements BookingService{
+public class BookingServiceImpl implements BookingService {
     private final BookingRepository repository;
     private final BookingEntityMapper mapper;
     private final UserRepository1 userRepository;
@@ -30,10 +30,10 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public Booking addBooking(long bookerId, Booking booking) {
-        UserEntity userEntity= userRepository.findById(bookerId)
+        UserEntity userEntity = userRepository.findById(bookerId)
                 .orElseThrow(() ->
                         new NotFoundException("Пользователь с id=" + bookerId + " не найден"));
-        ItemEntity itemEntity= itemRepository.findById(booking.getItemId())
+        ItemEntity itemEntity = itemRepository.findById(booking.getItemId())
                 .orElseThrow(() ->
                         new NotFoundException("Item с id=" + booking.getItemId() + " не найден"));
         if (!(itemEntity.getAvailable())) {
@@ -78,7 +78,7 @@ public class BookingServiceImpl implements BookingService{
                         .map(mapper::toBooking)
                         .toList();
             }
-            case BookingState.FUTURE ->  {
+            case BookingState.FUTURE -> {
                 return repository.findFutureByBookerAndState(booker, Timestamp.valueOf(LocalDateTime.now())).stream()
                         .map(mapper::toBooking)
                         .toList();
@@ -94,7 +94,7 @@ public class BookingServiceImpl implements BookingService{
                         .toList();
             }
         }
-       return List.of();
+        return List.of();
     }
 
     @Override
@@ -102,7 +102,7 @@ public class BookingServiceImpl implements BookingService{
         checkIfUserExists(owner);
         switch (state) {
             case BookingState.ALL -> {
-                return repository.findAllByOwnerAndState(owner,state.name()).stream()
+                return repository.findAllByOwnerAndState(owner, state.name()).stream()
                         .map(mapper::toBooking)
                         .toList();
             }
@@ -111,7 +111,7 @@ public class BookingServiceImpl implements BookingService{
                         .map(mapper::toBooking)
                         .toList();
             }
-            case BookingState.FUTURE ->  {
+            case BookingState.FUTURE -> {
                 return repository.findFutureByOwnerAndState(owner, state.name()).stream()
                         .map(mapper::toBooking)
                         .toList();
@@ -152,10 +152,11 @@ public class BookingServiceImpl implements BookingService{
         repository.findFirstByIdAndItemOwnerId(bookingId, ownerId).orElseThrow(() ->
                 new EntityNotFoundException("Пользователь с id=" + ownerId + " не найден"));
     }
+
     private void checkOwnerOrBookerId(long requester, long bookingId) {
-        if (/*repository.findFirstByIdAndOwner(bookingId, requester).isEmpty() ||*/
-                repository.findFirstByIdAndItemOwnerId(bookingId,requester).isEmpty() &&
-        (repository.findFirstByIdAndUserId(bookingId,requester).isEmpty()))
+        if (
+                repository.findFirstByIdAndItemOwnerId(bookingId, requester).isEmpty() &&
+                        (repository.findFirstByIdAndUserId(bookingId, requester).isEmpty()))
             throw new NotFoundException("не найдено");
     }
 }
