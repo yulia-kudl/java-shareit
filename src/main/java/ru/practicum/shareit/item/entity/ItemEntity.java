@@ -23,5 +23,5 @@ public class ItemEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity owner;
-    private Long request_id;
+    private Long requestId;
 }
