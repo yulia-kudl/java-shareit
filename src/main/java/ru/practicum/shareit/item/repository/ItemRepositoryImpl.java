@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 @Repository
 public class ItemRepositoryImpl implements ItemRepository {
     private final Map<Long, Item> items = new HashMap<>();
@@ -15,14 +16,14 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public Item addItem(long ownerId, Item item) {
         setId(item);
-        item.setOwner(ownerId);
+        //item.setOwner(ownerId);
         items.put(item.getId(), item);
         return item;
     }
 
     @Override
     public long getOwner(long itemId) {
-        return items.get(itemId).getOwner();
+        return 0;
     }
 
     @Override
@@ -49,16 +50,16 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public List<Item> getUserItems(long ownerId) {
         return items.values().stream()
-        .filter(item -> item.getOwner() == ownerId)
+                // .filter(item -> item.getOwner() == ownerId)
                 .toList();
     }
 
     @Override
     public List<Item> searchItems(String text) {
         return items.values().stream()
-        .filter(item -> item.getName().toLowerCase().contains(text.toLowerCase()) ||
+                .filter(item -> item.getName().toLowerCase().contains(text.toLowerCase()) ||
                         item.getDescription().toLowerCase().contains(text.toLowerCase()))
-        .filter(item -> Boolean.TRUE.equals(item.getAvailable()))
+                .filter(item -> Boolean.TRUE.equals(item.getAvailable()))
                 .toList();
     }
 

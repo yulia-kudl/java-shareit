@@ -13,6 +13,5 @@ public class ItemUpdateDto {
     private String name;
     private String description;
     private Boolean available;
-    private long owner;
     private ItemRequest request;
 }
