@@ -13,6 +13,5 @@ public class ItemResponseUserDto {
     String name;
     String description;
     boolean available;
-    long owner;
     ItemRequest request;
 }
