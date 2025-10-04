@@ -3,6 +3,7 @@ package ru.practicum.shareit.item.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import ru.practicum.shareit.item.dto.ItemReqDto;
 import ru.practicum.shareit.item.entity.ItemEntity;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface ItemRepository1 extends JpaRepository<ItemEntity, Long> {
 
     @Query("SELECT i FROM ItemEntity i WHERE i.owner.id = :ownerId")
     List<ItemEntity> findAllByOwner(@Param("ownerId") long ownerId);
+
+    List<ItemEntity> findByRequest_Id(long requestId);
 }
