@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         imports = {Timestamp.class, LocalDateTime.class},
-        uses = {UserMapper.class, ItemMapper.class} // для статических методов
+        uses = {UserMapper.class, ItemMapper.class}
 )
 public interface BookingEntityMapper {
 
