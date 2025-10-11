@@ -17,10 +17,10 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
     @Query("select b from BookingEntity b where b.user.id = :userId  order by start desc")
     List<BookingEntity> findAllByBookerAndState(@Param("userId") long bookerId);
 
-    @Query("select b from BookingEntity b where b.user.id = :userId and start > :now and end < :now order by start desc")
+    @Query("select b from BookingEntity b where b.user.id = :userId and start > :now and end > :now order by start desc")
     List<BookingEntity> findCurrentByBookerAndState(@Param("userId") long booker, @Param("now") Timestamp now);
 
-    @Query("select b from BookingEntity b where b.user.id = :userId and start > :now and end < :now order by start desc")
+    @Query("select b from BookingEntity b where b.user.id = :userId and start > :now  order by start desc")
     List<BookingEntity> findFutureByBookerAndState(@Param("userId") long booker, @Param("now") Timestamp now);
 
     @Query("select b from BookingEntity b where b.user.id = :userId and end < :now order by start desc")
