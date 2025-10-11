@@ -6,11 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.user.Service.UserService;
 import ru.practicum.shareit.user.dto.UserRequest;
-import ru.practicum.shareit.user.dto.UserResponse;
 import ru.practicum.shareit.user.dto.UserUpdate;
-import ru.practicum.shareit.user.mapper.UserMapper;
 
 @RestController
 @RequiredArgsConstructor
