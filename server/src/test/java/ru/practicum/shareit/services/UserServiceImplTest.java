@@ -11,14 +11,14 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exceptions.ProjectException;
 import ru.practicum.shareit.user.Service.UserServiceImpl;
-import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.repository.UserRepository;
+import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.repository.UserRepository1;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Transactional

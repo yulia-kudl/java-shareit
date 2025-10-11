@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.model.Booking;
@@ -20,7 +19,8 @@ import ru.practicum.shareit.user.repository.UserRepository1;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Transactional
 @Rollback
@@ -53,6 +53,7 @@ class BookingServiceImplIntegrationTest {
         item = itemRepository.save(new ItemEntity(null, "Item1", "Description", true, owner, null));
 
     }
+
     @Test
     void testGetBookingsForBookerByState_All() {
         Booking booking1 = new Booking(1L, LocalDateTime.now().minusDays(2), LocalDateTime.now().minusDays(1),

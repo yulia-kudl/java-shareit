@@ -47,7 +47,7 @@ class ItemRequestServiceIntegrationTest {
 
     @Test
     void testGetRequestsByAuthor_returnsRequestsInDescendingOrder() {
-        ItemRequest request1 = new ItemRequest(null,  LocalDateTime.now().minusDays(1), null, "ищу дрель" ,null);
+        ItemRequest request1 = new ItemRequest(null, LocalDateTime.now().minusDays(1), null, "ищу дрель", null);
         ItemRequest request2 = new ItemRequest(null, LocalDateTime.now(), null, "ищу молоток", null);
 
         itemRequestService.addRequest(request1, author.getId());
@@ -71,6 +71,6 @@ class ItemRequestServiceIntegrationTest {
         long nonExistentUserId = 999L;
         // addRequest для несуществующего пользователя выбросит NotFoundException
         assertThrows(Exception.class, () -> itemRequestService.addRequest(
-                new ItemRequest(null,LocalDateTime.now(), null, "Нужна отвертка", null), nonExistentUserId));
+                new ItemRequest(null, LocalDateTime.now(), null, "Нужна отвертка", null), nonExistentUserId));
     }
 }

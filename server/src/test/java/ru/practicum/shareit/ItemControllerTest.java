@@ -19,7 +19,8 @@ import java.util.Collections;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ItemController.class)
 class ItemControllerTest {
@@ -54,7 +55,7 @@ class ItemControllerTest {
 
     @Test
     void updateItem_Ok() throws Exception {
-        ItemUpdateDto update = new ItemUpdateDto(1L,"Updated", "Updated Desc", true, null);
+        ItemUpdateDto update = new ItemUpdateDto(1L, "Updated", "Updated Desc", true, null);
         ItemResponseDto response = new ItemResponseDto(1L, "Updated", "Updated Desc",
                 true, null, null, null, null, null);
 
