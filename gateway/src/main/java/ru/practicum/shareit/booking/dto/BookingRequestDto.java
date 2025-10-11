@@ -27,7 +27,7 @@ public class BookingRequestDto {
     private LocalDateTime end;
 
     @AssertTrue
-    boolean isStartBeforeEnd() {
+    public boolean isStartBeforeEnd() {
         return start.isBefore(end);
     }
 }
