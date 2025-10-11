@@ -22,7 +22,7 @@ public class BookingController {
     private final BookingMapper mapper;
 
     @PostMapping
-    BookingDto create( @RequestBody BookingRequestDto request, @RequestHeader("X-Sharer-User-Id") long bookerId) {
+    BookingDto create(@RequestBody BookingRequestDto request, @RequestHeader("X-Sharer-User-Id") long bookerId) {
         return mapper.toBookingDto(bookingService.addBooking(bookerId, mapper.toBooking(request)));
     }
 

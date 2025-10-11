@@ -22,7 +22,7 @@ public class ItemRequestController {
     }
 
     @GetMapping
-    List<ReqResponseFullDto> getAuthorRequests(@RequestHeader("X-Sharer-User-Id") long authorId ) {
+    List<ReqResponseFullDto> getAuthorRequests(@RequestHeader("X-Sharer-User-Id") long authorId) {
         //проверка что такого пользователя нет?
         return mapper.toFullDtoList(service.getRequestsByAuthor(authorId));
     }

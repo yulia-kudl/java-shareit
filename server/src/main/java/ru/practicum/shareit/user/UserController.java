@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping
-    UserResponse createUser( @RequestBody UserRequest request) {
+    UserResponse createUser(@RequestBody UserRequest request) {
         return mapper.toUserResponse(service.createUser(mapper.toUser(request)));
     }
 

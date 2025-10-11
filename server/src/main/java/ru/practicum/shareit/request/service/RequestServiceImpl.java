@@ -1,8 +1,8 @@
 package ru.practicum.shareit.request.service;
 
-import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.repository.ItemEntityMapper;
 import ru.practicum.shareit.item.repository.ItemRepository1;
@@ -14,11 +14,10 @@ import ru.practicum.shareit.user.entity.UserEntity;
 import ru.practicum.shareit.user.repository.UserRepository1;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
-public class RequestServiceImpl  implements RequestService{
+public class RequestServiceImpl implements RequestService {
     private final RequestRepository repository;
     private final RequestEntityMapper mapper;
     private final ItemRepository1 itemRepository;
@@ -32,14 +31,14 @@ public class RequestServiceImpl  implements RequestService{
         UserEntity author = userRepository.findById(authorId)
                 .orElseThrow(() -> new NotFoundException("User not found: " + authorId));
         requestEntity.setAuthor(author);
-        return  mapper.toItemRequest(repository.save(requestEntity));
+        return mapper.toItemRequest(repository.save(requestEntity));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ItemRequest> getRequestsByAuthor(long authorId) {
         return repository.findByAuthor_IdOrderByCreatedDesc(authorId).stream()
-                .map(mapper:: toItemRequest)
+                .map(mapper::toItemRequest)
                 .toList();
     }
 
@@ -54,7 +53,7 @@ public class RequestServiceImpl  implements RequestService{
     @Override
     @Transactional(readOnly = true)
     public ItemRequest getRequestById(long requestId) {
-        return  mapper.toItemRequest(repository.findById(requestId));
+        return mapper.toItemRequest(repository.findById(requestId));
 
     }
 

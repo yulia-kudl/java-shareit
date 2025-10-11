@@ -19,7 +19,7 @@ public class ItemResponseDto {
     boolean available;
     UserResponse owner;
     ItemRequest request;
-    private List<CommentDto> comments;
     BookingItemDto lastBooking;
     BookingItemDto nextBooking;
+    private List<CommentDto> comments;
 }

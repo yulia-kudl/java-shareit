@@ -15,8 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReqResponseFullDto {
-     long id;
-     LocalDateTime created;
-     List<ItemReqDto> items;
-     String description;
+    long id;
+    LocalDateTime created;
+    List<ItemReqDto> items;
+    String description;
 }
