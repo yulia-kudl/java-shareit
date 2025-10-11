@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
         "spring.jpa.hibernate.ddl-auto=create-drop"})
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @SpringBootTest
-class ItemRequestServiceIntegrationTest {
+class ItemRequestServiceImplTest {
 
     @Autowired
     private RequestService itemRequestService;

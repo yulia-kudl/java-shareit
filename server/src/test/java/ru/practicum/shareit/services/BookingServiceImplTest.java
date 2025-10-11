@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         "spring.jpa.hibernate.ddl-auto=create-drop"})
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @SpringBootTest
-class BookingServiceImplIntegrationTest {
+class BookingServiceImplTest {
 
     @Autowired
     private BookingService bookingService;
