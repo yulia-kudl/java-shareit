@@ -1,8 +1,5 @@
 package ru.practicum.shareit.booking;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,11 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
-
 import ru.practicum.shareit.booking.dto.BookItemRequestDto;
-import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingState;
 import ru.practicum.shareit.client.BaseClient;
+
+import java.util.Map;
+
 
 @Service
 public class BookingClient extends BaseClient {
@@ -33,10 +31,10 @@ public class BookingClient extends BaseClient {
     public ResponseEntity<Object> getBookings(long userId, BookingState state) {
         Map<String, Object> parameters = Map.of(
                 "state", state.name()
-              //  "from", from,
-              //  "size", size
+                //  "from", from,
+                //  "size", size
         );
-        return get("?state={state}&from={from}&size={size}", userId, parameters);
+        return get("?state={state}", userId, parameters);
     }
 
 
@@ -52,9 +50,10 @@ public class BookingClient extends BaseClient {
     //PATCH /bookings/{bookingId}?approved={approved}
     public ResponseEntity<Object> updateBookingStatus(long bookingId, long ownerId, boolean approved) {
         Map<String, Object> parameters = Map.of(
+                "bookingId", bookingId,
                 "approved", approved
         );
-        return patch("/" + bookingId +"?approved={approved}", parameters);
+        return patch("/{bookingId}?approved={approved}", ownerId, parameters, null);
     }
 
     //GET /bookings/owner?state={state}
@@ -62,6 +61,6 @@ public class BookingClient extends BaseClient {
         Map<String, Object> parameters = Map.of(
                 "state", state
         );
-        return get("/owner?state={state}", ownerId, parameters );
+        return get("/owner?state={state}", ownerId, parameters);
     }
 }

@@ -90,9 +90,10 @@ public class ItemServiceIml implements ItemService {
 
     @Override
     public Comment addComment(long userId, long itemId, Comment comment) {
-        if (bookingRepository.findFirstByItem_IdAndUser_IdAndEndBefore(itemId, userId, Timestamp.from(Instant.now())).isEmpty())
+        Timestamp timestamp = Timestamp.from(Instant.now());
+        if (bookingRepository.findFirstByItem_IdAndUser_IdAndEndBefore(itemId, userId, timestamp).isEmpty())
             throw new ProjectException("завершенной брони вещи с itemId " + itemId + " у пользователя userId " + userId
-                    + " нет");
+                    + " нет на момент" + timestamp.toLocalDateTime());
 
 
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
