@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         "spring.jpa.hibernate.ddl-auto=create-drop"})
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @SpringBootTest
-class UserServiceImplGetUserTest {
+class UserServiceImplTest {
 
     private final UserServiceImpl service;
     private final UserRepository1 userRepository;
