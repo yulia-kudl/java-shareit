@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRequest {
-    @NotBlank
     private String name;
-    @NotBlank
-    @Email
     private String email;
 }
