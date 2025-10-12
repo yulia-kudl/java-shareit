@@ -12,7 +12,7 @@ import ru.practicum.shareit.request.ItemRequest;
 import ru.practicum.shareit.request.repository.RequestRepository;
 import ru.practicum.shareit.request.service.RequestService;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.repository.UserRepository1;
+import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +33,7 @@ class ItemrequestServiceImplTest {
     private RequestService itemRequestService;
 
     @Autowired
-    private UserRepository1 userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private RequestRepository requestRepository;

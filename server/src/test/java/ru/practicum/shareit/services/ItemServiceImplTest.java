@@ -10,10 +10,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.item.entity.ItemEntity;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.item.repository.ItemRepository1;
+import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.repository.UserRepository1;
+import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.util.List;
 
@@ -34,10 +34,10 @@ class ItemServiceImplTest {
     private ItemService itemService;
 
     @Autowired
-    private UserRepository1 userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private ItemRepository1 itemRepository;
+    private ItemRepository itemRepository;
 
     private UserEntity owner;
 

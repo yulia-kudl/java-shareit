@@ -12,9 +12,9 @@ import ru.practicum.shareit.booking.repository.BookingState;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.exceptions.ProjectException;
 import ru.practicum.shareit.item.entity.ItemEntity;
-import ru.practicum.shareit.item.repository.ItemRepository1;
+import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.repository.UserRepository1;
+import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -25,8 +25,8 @@ import java.util.List;
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository repository;
     private final BookingEntityMapper mapper;
-    private final UserRepository1 userRepository;
-    private final ItemRepository1 itemRepository;
+    private final UserRepository userRepository;
+    private final ItemRepository itemRepository;
 
     @Override
     public Booking addBooking(long bookerId, Booking booking) {

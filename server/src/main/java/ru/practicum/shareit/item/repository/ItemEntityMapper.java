@@ -8,7 +8,7 @@ import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.request.RequestEntity;
 import ru.practicum.shareit.user.mapper.UserMapper;
-import ru.practicum.shareit.user.repository.UserRepository1;
+import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface ItemEntityMapper {
     Item toItem(ItemEntity entity);
 
     @Mapping(source = "requestId", target = "request")
-    ItemEntity toEntity(Item item, @Context UserRepository1 userRepository);
+    ItemEntity toEntity(Item item, @Context UserRepository userRepository);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "owner", ignore = true)

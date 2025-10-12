@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.repository.ItemEntityMapper;
-import ru.practicum.shareit.item.repository.ItemRepository1;
+import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.request.ItemRequest;
 import ru.practicum.shareit.request.RequestEntity;
 import ru.practicum.shareit.request.repository.RequestEntityMapper;
 import ru.practicum.shareit.request.repository.RequestRepository;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.repository.UserRepository1;
+import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ import java.util.List;
 public class RequestServiceImpl implements RequestService {
     private final RequestRepository repository;
     private final RequestEntityMapper mapper;
-    private final ItemRepository1 itemRepository;
+    private final ItemRepository itemRepository;
     private final ItemEntityMapper itemMapper;
-    private final UserRepository1 userRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional

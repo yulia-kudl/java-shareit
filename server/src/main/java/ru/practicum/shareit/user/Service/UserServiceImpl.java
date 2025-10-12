@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.ProjectException;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.repository.UserRepository1;
+import ru.practicum.shareit.user.repository.UserRepository;
 import ru.practicum.shareit.user.repository.UserRepositoryMapper;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository1 userRepository;
+    private final UserRepository userRepository;
     private final UserRepositoryMapper mapper;
 
     @Override

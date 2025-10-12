@@ -12,9 +12,9 @@ import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.repository.CommentRepository;
 import ru.practicum.shareit.item.repository.ItemEntityMapper;
-import ru.practicum.shareit.item.repository.ItemRepository1;
+import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.repository.UserRepository1;
+import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -24,8 +24,8 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class ItemServiceIml implements ItemService {
-    private final ItemRepository1 repository;
-    private final UserRepository1 userRepository;
+    private final ItemRepository repository;
+    private final UserRepository userRepository;
     private final ItemEntityMapper mapper;
     private final BookingRepository bookingRepository;
     private final CommentRepository commentRepository;

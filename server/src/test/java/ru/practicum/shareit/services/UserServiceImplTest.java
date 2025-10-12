@@ -14,7 +14,7 @@ import ru.practicum.shareit.user.Service.UserServiceImpl;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.entity.UserEntity;
 import ru.practicum.shareit.user.mapper.UserMapper;
-import ru.practicum.shareit.user.repository.UserRepository1;
+import ru.practicum.shareit.user.repository.UserRepository;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UserServiceImplTest {
 
     private final UserServiceImpl service;
-    private final UserRepository1 userRepository;
+    private final UserRepository userRepository;
     private final UserMapper mapper;
 
     @PersistenceContext

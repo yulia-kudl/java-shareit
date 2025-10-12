@@ -12,9 +12,9 @@ import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.repository.BookingState;
 import ru.practicum.shareit.booking.service.BookingService;
 import ru.practicum.shareit.item.entity.ItemEntity;
-import ru.practicum.shareit.item.repository.ItemRepository1;
+import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.repository.UserRepository1;
+import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,10 +36,10 @@ class BookingServiceImplTest {
     private BookingService bookingService;
 
     @Autowired
-    private UserRepository1 userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private ItemRepository1 itemRepository;
+    private ItemRepository itemRepository;
 
     private UserEntity booker;
     private UserEntity owner;
