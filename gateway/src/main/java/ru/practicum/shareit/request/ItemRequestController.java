@@ -23,7 +23,6 @@ public class ItemRequestController {
 
     @GetMapping
     ResponseEntity<Object> getAuthorRequests(@RequestHeader("X-Sharer-User-Id") long authorId) {
-        //проверка что такого пользователя нет?
         return requestClient.getRequestsByAuthor(authorId);
     }
 

@@ -37,7 +37,9 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional(readOnly = true)
     public List<ItemRequest> getRequestsByAuthor(long authorId) {
-        return repository.findByAuthor_IdOrderByCreatedDesc(authorId).stream()
+        UserEntity author = userRepository.findById(authorId)
+                .orElseThrow(() -> new NotFoundException("User not found: " + authorId));
+        return repository.findByAuthor_IdOrderByCreatedDesc(author.getId()).stream()
                 .map(mapper::toItemRequest)
                 .toList();
     }
