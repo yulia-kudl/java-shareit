@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class ItemReqDto {
     long id;
     String name;
-    // UserResponse owner;
-
 }

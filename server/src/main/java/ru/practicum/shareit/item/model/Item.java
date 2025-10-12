@@ -10,9 +10,6 @@ import ru.practicum.shareit.user.User;
 
 import java.util.List;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Getter
 @Setter
 @AllArgsConstructor
