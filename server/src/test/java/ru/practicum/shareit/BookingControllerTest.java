@@ -8,7 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.practicum.shareit.booking.BookingController;
-import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.booking.dto.BookingResponseDto;
 import ru.practicum.shareit.booking.dto.BookingRequestDto;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
@@ -48,10 +48,10 @@ class BookingControllerTest {
         Booking booking = new Booking();
         booking.setId(1L);
 
-        BookingDto responseDto = new BookingDto();
+        BookingResponseDto responseDto = new BookingResponseDto();
         responseDto.setId(1L);
 
-        when(mapper.toBooking((BookingDto) any())).thenReturn(booking);
+        when(mapper.toBooking((BookingResponseDto) any())).thenReturn(booking);
         when(bookingService.addBooking(anyLong(), any())).thenReturn(booking);
         when(mapper.toBookingDto(any())).thenReturn(responseDto);
 
@@ -68,7 +68,7 @@ class BookingControllerTest {
         Booking booking = new Booking();
         booking.setId(10L);
 
-        BookingDto responseDto = new BookingDto();
+        BookingResponseDto responseDto = new BookingResponseDto();
         responseDto.setId(10L);
 
         when(bookingService.updateBookingStatus(eq(10L), eq(1L), eq(true))).thenReturn(booking);
@@ -86,7 +86,7 @@ class BookingControllerTest {
         Booking booking = new Booking();
         booking.setId(5L);
 
-        BookingDto responseDto = new BookingDto();
+        BookingResponseDto responseDto = new BookingResponseDto();
         responseDto.setId(5L);
 
         when(bookingService.getBooking(eq(1L), eq(5L))).thenReturn(booking);
@@ -103,7 +103,7 @@ class BookingControllerTest {
         Booking booking = new Booking();
         booking.setId(100L);
 
-        BookingDto dto = new BookingDto();
+        BookingResponseDto dto = new BookingResponseDto();
         dto.setId(100L);
 
         when(bookingService.getBookingsForBookerByState(eq(1L), eq(BookingState.ALL)))
@@ -122,7 +122,7 @@ class BookingControllerTest {
         Booking booking = new Booking();
         booking.setId(200L);
 
-        BookingDto dto = new BookingDto();
+        BookingResponseDto dto = new BookingResponseDto();
         dto.setId(200L);
 
         when(bookingService.getBookingsForOwnerByState(eq(1L), eq(BookingState.ALL)))

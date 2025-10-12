@@ -2,7 +2,7 @@ package ru.practicum.shareit.request.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.practicum.shareit.request.RequestEntity;
+import ru.practicum.shareit.request.entity.RequestEntity;
 
 import java.util.List;
 

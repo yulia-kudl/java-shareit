@@ -18,7 +18,4 @@ public class BookingRequestDto {
     private Long itemId;
     private LocalDateTime start;
     private LocalDateTime end;
-    boolean isStartBeforeEnd() {
-        return start.isBefore(end);
-    }
 }

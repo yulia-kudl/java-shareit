@@ -9,6 +9,8 @@ import ru.practicum.shareit.user.dto.UserResponse;
 
 import java.time.LocalDateTime;
 
+/* это DTO используется для ответа в ItemResponseDTO для last и next booking */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

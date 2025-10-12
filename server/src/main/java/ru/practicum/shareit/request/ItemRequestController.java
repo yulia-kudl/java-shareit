@@ -2,6 +2,10 @@ package ru.practicum.shareit.request;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.request.dto.ReqResponseDto;
+import ru.practicum.shareit.request.dto.ReqResponseFullDto;
+import ru.practicum.shareit.request.dto.RequestDto;
+import ru.practicum.shareit.request.mapper.RequestMapper;
 import ru.practicum.shareit.request.service.RequestService;
 
 import java.util.List;

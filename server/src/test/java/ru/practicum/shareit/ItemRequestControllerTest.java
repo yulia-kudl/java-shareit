@@ -8,6 +8,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.practicum.shareit.request.*;
+import ru.practicum.shareit.request.dto.ReqResponseDto;
+import ru.practicum.shareit.request.dto.ReqResponseFullDto;
+import ru.practicum.shareit.request.dto.RequestDto;
+import ru.practicum.shareit.request.mapper.RequestMapper;
+import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.request.service.RequestService;
 
 import java.time.LocalDateTime;

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.practicum.shareit.request.RequestEntity;
+import ru.practicum.shareit.request.entity.RequestEntity;
 import ru.practicum.shareit.user.entity.UserEntity;
 
 @Getter

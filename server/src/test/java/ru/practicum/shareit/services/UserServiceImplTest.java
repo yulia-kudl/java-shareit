@@ -2,7 +2,6 @@ package ru.practicum.shareit.services;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +12,6 @@ import ru.practicum.shareit.exceptions.ProjectException;
 import ru.practicum.shareit.user.Service.UserServiceImpl;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.mapper.UserMapper;
-import ru.practicum.shareit.user.repository.UserRepository;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -26,37 +23,39 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestPropertySource(properties = {
         "spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1",
         "spring.datasource.driver-class-name=org.h2.Driver",
-        "spring.jpa.hibernate.ddl-auto=create-drop"})
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+        "spring.jpa.hibernate.ddl-auto=create-drop"
+})
 @SpringBootTest
 class UserServiceImplTest {
 
-    private final UserServiceImpl service;
-    private final UserRepository userRepository;
-    private final UserMapper mapper;
+    @Autowired
+    private UserServiceImpl userService;
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     @Test
     void getUser_returnsUser_whenExists() {
         UserEntity entity = new UserEntity();
         entity.setName("Анна");
         entity.setEmail("anna@test.com");
-        UserEntity savedEntity = userRepository.save(entity);
+        entityManager.persist(entity);
+        entityManager.flush();
 
-        User user = service.getUser(savedEntity.getId());
+        // Вызов сервиса
+        User user = userService.getUser(entity.getId());
 
-        assertThat(user.getId(), equalTo(savedEntity.getId()));
+        // Проверки
+        assertThat(user.getId(), equalTo(entity.getId()));
         assertThat(user.getName(), equalTo("Анна"));
         assertThat(user.getEmail(), equalTo("anna@test.com"));
     }
 
     @Test
     void getUser_throwsException_whenNotFound() {
-
+        // Проверяем, что сервис выбрасывает ProjectException
         ProjectException ex = assertThrows(ProjectException.class,
-                () -> service.getUser(9999L));
+                () -> userService.getUser(9999L));
 
         assertThat(ex.getMessage(), containsString("пользователь с id 9999"));
     }

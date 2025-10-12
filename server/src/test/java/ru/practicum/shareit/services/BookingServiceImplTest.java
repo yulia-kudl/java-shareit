@@ -1,6 +1,7 @@
 package ru.practicum.shareit.services;
 
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,34 +13,28 @@ import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.repository.BookingState;
 import ru.practicum.shareit.booking.service.BookingService;
 import ru.practicum.shareit.item.entity.ItemEntity;
-import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @Rollback
 @TestPropertySource(properties = {
         "spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1",
         "spring.datasource.driver-class-name=org.h2.Driver",
-        "spring.jpa.hibernate.ddl-auto=create-drop"})
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+        "spring.jpa.hibernate.ddl-auto=create-drop"
+})
 @SpringBootTest
 class BookingServiceImplTest {
 
     @Autowired
     private BookingService bookingService;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ItemRepository itemRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private UserEntity booker;
     private UserEntity owner;
@@ -47,35 +42,61 @@ class BookingServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        booker = userRepository.save(new UserEntity(1, "Booker", "booker@mail.com"));
-        owner = userRepository.save(new UserEntity(2, "Owner", "owner@mail.com"));
+        booker = new UserEntity();
+        booker.setName("Booker");
+        booker.setEmail("booker@mail.com");
+        entityManager.persist(booker);
 
-        item = itemRepository.save(new ItemEntity(null, "Item1", "Description", true, owner, null));
+        owner = new UserEntity();
+        owner.setName("Owner");
+        owner.setEmail("owner@mail.com");
+        entityManager.persist(owner);
 
+        item = new ItemEntity();
+        item.setName("Item1");
+        item.setDescription("Description");
+        item.setAvailable(true);
+        item.setOwner(owner);
+        entityManager.persist(item);
+
+        entityManager.flush();
     }
 
     @Test
-    void testGetBookingsForBookerByState_All() {
-        Booking booking1 = new Booking(1L, LocalDateTime.now().minusDays(2), LocalDateTime.now().minusDays(1),
-                booker.getId(), item.getId(), null, null, null);
-        Booking booking2 = new Booking(2L, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2),
-                booker.getId(), item.getId(), null, null, null);
+    void testGetBookingsForBookerByState_AllPastFuture() {
+        Booking pastBooking = new Booking(
+                null,
+                LocalDateTime.now().minusDays(3),
+                LocalDateTime.now().minusDays(2),
+                booker.getId(),
+                item.getId(),
+                null, null, null
+        );
 
-        bookingService.addBooking(booker.getId(), booking1);
-        bookingService.addBooking(booker.getId(), booking2);
+        Booking futureBooking = new Booking(
+                null,
+                LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().plusDays(2),
+                booker.getId(),
+                item.getId(),
+                null, null, null
+        );
 
-        // проверяем ALL
-        List<Booking> allBookings = bookingService.getBookingsForBookerByState(booker.getId(), BookingState.ALL);
-        assertEquals(2, allBookings.size());
+        bookingService.addBooking(booker.getId(), pastBooking);
+        bookingService.addBooking(booker.getId(), futureBooking);
 
-        // проверяем PAST
-        List<Booking> pastBookings = bookingService.getBookingsForBookerByState(booker.getId(), BookingState.PAST);
-        assertEquals(1, pastBookings.size());
-        assertTrue(pastBookings.get(0).getStart().isBefore(LocalDateTime.now()));
+        List<Booking> allBookings =
+                bookingService.getBookingsForBookerByState(booker.getId(), BookingState.ALL);
+        assertEquals(2, allBookings.size(), "Ожидалось 2 бронирования в состоянии ALL");
 
-        // проверяем FUTURE
-        List<Booking> futureBookings = bookingService.getBookingsForBookerByState(booker.getId(), BookingState.FUTURE);
-        assertEquals(1, futureBookings.size());
+        List<Booking> pastBookings =
+                bookingService.getBookingsForBookerByState(booker.getId(), BookingState.PAST);
+        assertEquals(1, pastBookings.size(), "Ожидалось одно прошедшее бронирование");
+        assertTrue(pastBookings.get(0).getEnd().isBefore(LocalDateTime.now()));
+
+        List<Booking> futureBookings =
+                bookingService.getBookingsForBookerByState(booker.getId(), BookingState.FUTURE);
+        assertEquals(1, futureBookings.size(), "Ожидалось одно будущее бронирование");
         assertTrue(futureBookings.get(0).getStart().isAfter(LocalDateTime.now()));
     }
 }
