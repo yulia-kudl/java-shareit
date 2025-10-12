@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.practicum.shareit.request.*;
+import ru.practicum.shareit.request.ItemRequestController;
 import ru.practicum.shareit.request.dto.ReqResponseDto;
 import ru.practicum.shareit.request.dto.ReqResponseFullDto;
 import ru.practicum.shareit.request.dto.RequestDto;

@@ -1,4 +1,3 @@
-import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,10 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JsonTest
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
-class BookingRequestDtoJsonTest {
+class BookingRequestDTOTest {
 
-    private final JacksonTester<BookingRequestDto> json;
+    @Autowired
+    private JacksonTester<BookingRequestDto> json;
 
     @Test
     void testBookingRequestDtoSerialization() throws Exception {
@@ -38,7 +37,6 @@ class BookingRequestDtoJsonTest {
 
         BookingRequestDto dto = new BookingRequestDto(1L, start, end);
 
-        // Проверяем метод валидации isStartBeforeEnd
         assertThat(dto.isStartBeforeEnd()).isFalse();
     }
 

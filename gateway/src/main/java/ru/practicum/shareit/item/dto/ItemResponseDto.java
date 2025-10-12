@@ -7,8 +7,10 @@ import lombok.experimental.FieldDefaults;
 import ru.practicum.shareit.booking.dto.BookingItemDto;
 import ru.practicum.shareit.request.dto.ItemRequest;
 import ru.practicum.shareit.user.dto.UserResponse;
-import static lombok.AccessLevel.PRIVATE;
+
 import java.util.List;
+
+import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @AllArgsConstructor

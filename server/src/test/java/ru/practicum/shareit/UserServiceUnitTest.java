@@ -10,7 +10,6 @@ import ru.practicum.shareit.exceptions.ProjectException;
 import ru.practicum.shareit.user.Service.UserServiceImpl;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.entity.UserEntity;
-import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.repository.UserRepository;
 import ru.practicum.shareit.user.repository.UserRepositoryMapper;
 
